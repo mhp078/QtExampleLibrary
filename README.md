@@ -4,6 +4,8 @@
 In this example, a library is built with Qt and an output is provided that can be used in any other project.
 Cmake is used in this library.
 
+[MyLib Project](#mylib-project)
+[MyLibTest Project](#mylibtest-project)
 [Usage](#Usage)
 
 
@@ -50,6 +52,50 @@ class MYLIB_EXPORT MyLib
     ...
 }
 ```
+
+
+# MyLibTest Project
+
+To use the output of the "MyLib" library, follow the steps below.
+
+**CMakeLists.txt**
+
+```
+set(MyLib_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../Release")
+
+add_library(MyLib SHARED IMPORTED)
+
+set_property(TARGET MyLib PROPERTY IMPORTED_LOCATION "${MyLib_PATH}/bin/MyLib.dll")
+set_property(TARGET MyLib PROPERTY IMPORTED_IMPLIB "${MyLib_PATH}/lib/MyLib.lib")
+target_include_directories(MyLib INTERFACE "${MyLib_PATH}/include")
+```
+
+Add "MyLib" in target_link_libraries.
+
+```
+target_link_libraries(MyLibTest Qt${QT_VERSION_MAJOR}::Core MyLib)
+```
+
+Now use library in main.cpp .
+
+```
+#include <QCoreApplication>
+#include <mylib.h>
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    MyLib mylib;
+
+    mylib.Test_1();
+    mylib.Test_2();
+
+    return a.exec();
+}
+
+```
+
 # Usage
 
 ## **Step 1**
