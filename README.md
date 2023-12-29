@@ -1,7 +1,7 @@
 
 # Qt Library Sample
 
-In this sample, a library is built with Qt and an output is provided that can be used in any other project.
+In this project, a library is built with Qt and an output is provided that can be used in any other project.
 Cmake is used in this library.
 
 [MyLib Project](#mylib-project) \
